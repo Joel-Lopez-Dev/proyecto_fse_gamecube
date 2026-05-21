@@ -15,7 +15,7 @@ Sistema de videojuegos interactivos basado en **FastAPI + WebSockets** para Rasp
 - **Soporte Futuro Jugador 3**: Estructura JSON lista para recibir inputs de Arduino vía Bluetooth.
 
 ### Estética
-- **Tema Xbox**: Negro mate (#0d0d0d) + Verde fosforescente (#107C10)
+- **Tema GameCube**: Púrpura (#7B2CBF) + Negro mate (#1a1a1a)
 - **Controles PC**: Teclado QWER (J1) y UIOP (J2)
 - **Responsivo**: Funciona en PC, tablet y móvil
 
@@ -23,7 +23,7 @@ Sistema de videojuegos interactivos basado en **FastAPI + WebSockets** para Rasp
 
 ### Paso 1: Crear Entorno Virtual
 ```bash
-cd simon_xbox_project
+cd proyecto_fse_gamecube
 python -m venv env
 source env/Scripts/activate  # Windows: env\Scripts\activate
 ```
@@ -92,7 +92,7 @@ Cuando se ejecuta en PC, el código automáticamente:
 2. **LCD I2C**: Simula pantalla LCD en la terminal
    ```
    [LCD] ┌────────────────┐
-         │Xbox Arcade     │
+         │ GameCube     │
          │Listo! Sim      │
          └────────────────┘
    ```
@@ -165,8 +165,8 @@ sudo apt-get install python3 python3-pip python3-venv
 sudo apt-get install python3-rpi.gpio python3-smbus i2c-tools
 
 # Clonar/copiar proyecto
-git clone https://github.com/tuusuario/simon-xbox-project.git
-cd simon-xbox-project
+git clone https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
+cd proyecto_fse_gamecube
 
 # Crear entorno virtual
 python3 -m venv env
@@ -181,19 +181,19 @@ sudo env/bin/python app.py
 
 ### Configuración de Autostart (Systemd)
 ```bash
-sudo nano /etc/systemd/system/xbox-arcade.service
+sudo nano /etc/systemd/system/gamecube.service
 ```
 
 ```ini
 [Unit]
-Description=Xbox Arcade Gaming Server
+Description=GameCube - Proyecto Final FSE
 After=network.target
 
 [Service]
 Type=simple
 User=pi
-WorkingDirectory=/home/pi/simon-xbox-project
-ExecStart=/home/pi/simon-xbox-project/env/bin/python app.py
+WorkingDirectory=/home/pi/proyecto_fse_gamecube
+ExecStart=/home/pi/proyecto_fse_gamecube/env/bin/python app.py
 Restart=on-failure
 RestartSec=10
 
@@ -202,8 +202,8 @@ WantedBy=multi-user.target
 ```
 
 ```bash
-sudo systemctl enable xbox-arcade.service
-sudo systemctl start xbox-arcade.service
+sudo systemctl enable gamecube.service
+sudo systemctl start gamecube.service
 ```
 
 ## 🔌 Diagrama de Hardware (Raspberry Pi)
@@ -259,8 +259,8 @@ El LCD automáticamente incluirá la racha de P3.
 ### Cambiar Colores
 Editar `:root` en `static/css/style.css`:
 ```css
---xbox-green: #107C10;  /* Cambiar color principal */
---xbox-dark: #0a0e27;
+--gc-purple: #7B2CBF;  /* Cambiar color principal */
+--gc-dark: #1a1a1a;
 ```
 
 ### Cambiar Velocidad Guitar Hero
@@ -290,6 +290,6 @@ Este proyecto es demostrativo y educativo. Libre para uso personal y educativo.
 
 ---
 
-**Construido con ❤️ para Raspberry Pi 4 en Xbox Series X**
+**Construido con ❤️ para Raspberry Pi 4 - GameCube Proyecto Final FSE**
 
 🚀 Disfruta tu arcade interactivo personal.

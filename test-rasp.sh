@@ -1,10 +1,14 @@
 #!/bin/bash
 # test-rasp.sh - Verificación rápida en Raspberry Pi
+# Ejecutar con: sudo bash test-rasp.sh
 
 set -e
 
+# ⚠️  CONFIGURACIÓN DE RUTAS - EDITA SI ES NECESARIO
+PROJECT_DIR="/home/pi/proyecto_fse_gamecube"  # 👈 Ruta donde clonaste el proyecto
+
 echo "======================================================================"
-echo "GameCube - Test Rápido Raspberry Pi"
+echo "GameCube - Proyecto Final FSE - Test Rápido Raspberry Pi"
 echo "======================================================================"
 echo ""
 

@@ -1,5 +1,6 @@
 #!/bin/bash
-# Setup Raspberry Pi - Instalación completa
+# GameCube - Proyecto Final FSE - Setup Raspberry Pi
+# Instalación completa ONE-COMMAND para Rasp
 # Ejecutar con: sudo bash setup-rasp.sh
 
 set -e
@@ -9,13 +10,15 @@ echo "GameCube - Proyecto Final FSE - SETUP RASPBERRY PI"
 echo "======================================================================"
 echo ""
 
+# ⚠️  CONFIGURACIÓN DE RUTAS - EDITA SI ES NECESARIO
+# Si clonaste el proyecto en otro lugar, actualiza esta ruta:
+PROJECT_DIR="/home/pi/proyecto_fse_gamecube"
+
 # Verificar privilegios
 if [[ $EUID -ne 0 ]]; then
     echo "❌ Este script debe ejecutarse con sudo"
     exit 1
 fi
-
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 1. Actualizar sistema
 echo "1/6 Actualizando sistema..."

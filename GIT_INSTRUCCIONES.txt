@@ -100,7 +100,7 @@ FLUJO COMPLETO
 cd d:\proyecto_fse\simon_xbox_project
 git init
 git add .
-git commit -m "Initial commit: GameCube adaptado para Rasp"
+git commit -m "Cambios-2.0: GameCube adaptado para Rasp - Rutas comentadas"
 git remote add origin https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
 git branch -M main
 git push -u origin main
@@ -110,8 +110,8 @@ cd /home/pi
 git clone https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
 cd proyecto_fse_gamecube
 sudo bash setup-rasp.sh
-mkdir videos/
-# (Coloca gamecube.mp4 aquí)
+mkdir -p videos/
+# (Coloca gamecube.mp4 aquí en videos/)
 sudo systemctl start gamecube
 
 # 3. Verificar

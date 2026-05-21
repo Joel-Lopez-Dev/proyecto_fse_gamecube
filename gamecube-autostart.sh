@@ -1,10 +1,13 @@
 #!/bin/bash
-# GameCube Autostart Script
+# GameCube - Proyecto Final FSE - Autostart Script
+# Configurar servicio systemd para autostart
 # Ejecutar con: sudo bash gamecube-autostart.sh
 
 set -e
 
-PROJECT_DIR="/home/pi/proyecto_fse_gamecube"
+# ⚠️  CONFIGURACIÓN DE RUTAS - EDITA SI ES NECESARIO
+PROJECT_DIR="/home/pi/proyecto_fse_gamecube"          # 👈 Ruta donde clonaste el proyecto
+VIDEO_FILE="$PROJECT_DIR/videos/gamecube.mp4"        # 👈 Video intro (poner aquí: cp tu_video.mp4 proyecto/videos/gamecube.mp4)
 SYSTEMD_SERVICE="/etc/systemd/system/gamecube.service"
 STARTUP_SCRIPT="/usr/local/bin/gamecube-startup.sh"
 
@@ -38,9 +41,11 @@ echo "Creando script de startup..."
 cat > "$STARTUP_SCRIPT" << 'STARTUP_EOF'
 #!/bin/bash
 # Script que se ejecuta al iniciar gamecube service
+# Rutas configurables debajo ⬇️
 
-PROJECT_DIR="/home/pi/proyecto_fse_gamecube"
-VIDEO_FILE="$PROJECT_DIR/videos/gamecube.mp4"
+# ⚠️  CONFIGURACIÓN DE RUTAS - EDITA SI ES NECESARIO
+PROJECT_DIR="/home/pi/proyecto_fse_gamecube"          # 👈 Ruta donde clonaste el proyecto
+VIDEO_FILE="$PROJECT_DIR/videos/gamecube.mp4"        # 👈 Video intro (guardar: cp tu_video.mp4 aquí)
 VENV_PYTHON="$PROJECT_DIR/env/bin/python3"
 
 cd "$PROJECT_DIR"
@@ -50,6 +55,8 @@ if [ -f "$VIDEO_FILE" ]; then
     echo "[$(date)] Reproduciendo video de GameCube..."
     timeout 20 omxplayer "$VIDEO_FILE" 2>/dev/null || true
     sleep 1
+else
+    echo "[$(date)] Video no encontrado (ignorando)"
 fi
 
 # Activar venv y ejecutar servidor

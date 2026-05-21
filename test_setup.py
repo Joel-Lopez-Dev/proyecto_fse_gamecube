@@ -1,5 +1,5 @@
 """
-PRUEBAS RÁPIDAS - Xbox Arcade Gaming
+PRUEBAS RÁPIDAS - GameCube Proyecto Final FSE
 Ejecutar este archivo para validar el setup en PC
 """
 
@@ -169,7 +169,7 @@ def main():
     """Ejecutar todas las pruebas."""
     print("\n")
     print("🎮" * 35)
-    print("     XBOX ARCADE GAMING - VALIDACIÓN DE SETUP")
+    print("     GAMECUBE - PROYECTO FINAL FSE - VALIDACIÓN DE SETUP")
     print("🎮" * 35)
     
     tests = [
