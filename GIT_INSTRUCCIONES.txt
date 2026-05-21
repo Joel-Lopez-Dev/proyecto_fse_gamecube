@@ -1,0 +1,165 @@
+================================================================================
+INSTRUCCIONES PARA SUBIR A GIT
+================================================================================
+
+Repositorio: https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
+
+================================================================================
+PASO 1: CONFIGURAR GIT (Primera vez)
+================================================================================
+
+En la PC (en la carpeta del proyecto):
+
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@gmail.com"
+
+================================================================================
+PASO 2: INICIALIZAR REPOSITORIO
+================================================================================
+
+git init
+git add .
+git commit -m "Inicial: GameCube Proyecto FSE - Adaptado para Raspberry Pi"
+
+================================================================================
+PASO 3: CONECTAR REMOTO
+================================================================================
+
+git remote add origin https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
+
+================================================================================
+PASO 4: SUBIR AL REPOSITORIO
+================================================================================
+
+git push -u origin main
+
+Si pide contraseña, usa tu token de GitHub (Settings → Developer Settings → Personal access tokens)
+
+================================================================================
+ARCHIVOS QUE SE SUBIRÁN
+================================================================================
+
+ARCHIVOS PRINCIPALES:
+✓ app.py                    - Backend FastAPI adaptado para Rasp
+✓ requirements.txt          - Dependencias Python
+✓ templates/index.html      - Interfaz web
+✓ static/css/style.css      - Estilos
+✓ static/js/game.js         - Lógica frontend
+✓ .gitignore               - Config git
+
+DOCUMENTACIÓN (NUEVA):
+✓ README_COMPLETO.md       - Docs completas del proyecto
+✓ INSTALACION.md           - Guía paso a paso para Rasp
+✓ CONEXIONES.txt           - Esquema GPIO y conexiones
+✓ CAMBIOS_RASP.md          - Resumen de adaptaciones
+
+SCRIPTS (NUEVA):
+✓ setup-rasp.sh            - Instalación automática en Rasp
+✓ gamecube-autostart.sh    - Systemd service + video intro
+
+OTROS:
+✓ README.md                - README original (puede remplazarse)
+
+NO SE SUBEN (están en .gitignore):
+✗ env/                     - Entorno virtual (se crea localmente)
+✗ __pycache__/             - Cache Python
+✗ *.pyc                    - Archivos compilados
+✗ videos/*.mp4             - Videos (demasiado pesados)
+✗ .vscode/                 - Configuración IDE
+
+================================================================================
+CARPETA QUE DEBES CREAR MANUALMENTE EN RASP
+================================================================================
+
+mkdir -p videos/
+
+Luego coloca tu archivo gamecube.mp4 ahí:
+cp /ruta/a/gamecube.mp4 videos/gamecube.mp4
+
+================================================================================
+VERIFICAR ANTES DE SUBIR
+================================================================================
+
+1. ¿Está todo el código funcionando en PC?
+   python -m uvicorn app:app --host 127.0.0.1 --port 8001
+
+2. ¿Están todos los archivos de documentación?
+   ls -la *.md *.txt *.sh
+
+3. ¿El repositorio existe en GitHub?
+   https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube
+
+4. ¿Tienes acceso (token o SSH)?
+   git clone https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git (prueba)
+
+================================================================================
+FLUJO COMPLETO
+================================================================================
+
+# 1. En PC
+cd d:\proyecto_fse\simon_xbox_project
+git init
+git add .
+git commit -m "Initial commit: GameCube adaptado para Rasp"
+git remote add origin https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
+git branch -M main
+git push -u origin main
+
+# 2. En Rasp
+cd /home/pi
+git clone https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube.git
+cd proyecto_fse_gamecube
+sudo bash setup-rasp.sh
+mkdir videos/
+# (Coloca gamecube.mp4 aquí)
+sudo systemctl start gamecube
+
+# 3. Verificar
+# Abre: http://<IP-RASP>:8000
+
+================================================================================
+ACTUALIZACIONES FUTURAS
+================================================================================
+
+Si haces cambios en Rasp y los quieres sincronizar:
+
+# En Rasp
+git add .
+git commit -m "Descripción de cambios"
+git push origin main
+
+# O en PC
+git pull origin main
+
+================================================================================
+ESTRUCTURA FINAL EN GIT
+================================================================================
+
+proyecto_fse_gamecube/
+├── README_COMPLETO.md          ← Lee esto primero
+├── INSTALACION.md              ← Instrucciones paso a paso
+├── CONEXIONES.txt              ← Esquema GPIO
+├── CAMBIOS_RASP.md            ← Qué cambió
+├── setup-rasp.sh              ← Instala TODO
+├── gamecube-autostart.sh      ← Systemd + video
+├── app.py                     ← Backend
+├── requirements.txt           ← Dependencias
+├── README.md                  ← Original
+├── .gitignore                 ← Config
+├── templates/
+│   └── index.html
+├── static/
+│   ├── css/style.css
+│   └── js/game.js
+└── videos/                    ← Crear manualmente + copiar video
+
+================================================================================
+¿LISTO?
+================================================================================
+
+1. Verifica los comandos arriba
+2. Ejecuta los comandos git en orden
+3. Verifica en https://github.com/Joel-Lopez-Dev/proyecto_fse_gamecube
+4. Clona en Rasp y sigue INSTALACION.md
+
+¡Listo! 🎮

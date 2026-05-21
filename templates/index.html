@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameCube - Proyecto Final FSE - SIMON DICE</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">◆</span>GAMECUBE
+            </div>
+            <div class="status">
+                <span id="connection-status" class="dot"></span>
+                <span id="mode-display">Modo: Selecciona</span>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- SIMON DICE SECTION -->
+            <section id="simon-section" class="game-section hidden">
+                <h2 class="title">MEMORIA</h2>
+                <p class="subtitle">Sigue la secuencia de colores. Mira los LEDs de tu consola.</p>
+                
+                <div class="simon-display">
+                    <div id="simon-status" class="status-text">Esperando...</div>
+                    <div class="simon-stats">
+                        <span>Nivel: <span id="simon-level">1</span></span>
+                        <span>Combo: <span id="simon-combo">0</span></span>
+                        <span>Puntos: <span id="simon-points">0</span></span>
+                    </div>
+                </div>
+
+                <div class="players-section">
+                    <div class="player-info left">
+                        <h3>Jugador 1</h3>
+                        <div class="score">Puntos: <span id="j1-score">0</span></div>
+                        <div class="combo">Racha: <span id="j1-combo">0</span></div>
+                        <div class="button-group">
+                            <button class="btn btn-1" data-color="1">Q</button>
+                            <button class="btn btn-2" data-color="2">W</button>
+                            <button class="btn btn-3" data-color="3">E</button>
+                            <button class="btn btn-4" data-color="4">R</button>
+                        </div>
+                    </div>
+
+                    <div class="center-display"></div>
+
+                    <div class="player-info right">
+                        <h3>Jugador 2</h3>
+                        <div class="score">Puntos: <span id="j2-score">0</span></div>
+                        <div class="combo">Racha: <span id="j2-combo">0</span></div>
+                        <div class="button-group">
+                            <button class="btn btn-1" data-color="1" data-player="2">U</button>
+                            <button class="btn btn-2" data-color="2" data-player="2">I</button>
+                            <button class="btn btn-3" data-color="3" data-player="2">O</button>
+                            <button class="btn btn-4" data-color="4" data-player="2">P</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="simon-start-1p" class="btn-primary">Jugar (1 Jugador)</button>
+                    <button id="simon-start-2p" class="btn-primary">Jugar (2 Jugadores)</button>
+                    <button id="simon-reset" class="btn-secondary">Reiniciar</button>
+                    <button id="btn-return-menu" class="btn-secondary">Volver al Menú</button>
+                </div>
+            </section>
+
+            <!-- GUITAR HERO SECTION -->
+            <section id="guitar-section" class="game-section hidden">
+                <h2 class="title">Héroe del Ritmo</h2>
+                <p class="subtitle">Presiona los botones en el momento exacto cuando las notas toquen la línea roja</p>
+                
+                <div class="guitar-timer">
+                    <div class="timer-display">
+                        Tiempo: <span id="guitar-time">60</span>s
+                    </div>
+                </div>
+                
+                <div class="guitar-stage">
+                    <canvas id="guitar-canvas" width="800" height="600"></canvas>
+                </div>
+
+                <div class="players-section">
+                    <div class="player-info left">
+                        <h3>Jugador 1</h3>
+                        <div class="score">Puntos: <span id="g-j1-score">0</span></div>
+                        <div class="combo">Racha: <span id="g-j1-combo">0</span></div>
+                        <div class="button-group">
+                            <button class="btn btn-1" data-color="1">Q</button>
+                            <button class="btn btn-2" data-color="2">W</button>
+                            <button class="btn btn-3" data-color="3">E</button>
+                            <button class="btn btn-4" data-color="4">R</button>
+                        </div>
+                    </div>
+
+                    <div class="center-display"></div>
+
+                    <div class="player-info right">
+                        <h3>Jugador 2</h3>
+                        <div class="score">Puntos: <span id="g-j2-score">0</span></div>
+                        <div class="combo">Racha: <span id="g-j2-combo">0</span></div>
+                        <div class="button-group">
+                            <button class="btn btn-1" data-color="1" data-player="2">U</button>
+                            <button class="btn btn-2" data-color="2" data-player="2">I</button>
+                            <button class="btn btn-3" data-color="3" data-player="2">O</button>
+                            <button class="btn btn-4" data-color="4" data-player="2">P</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="guitar-start-1p" class="btn-primary">Jugar (1 Jugador)</button>
+                    <button id="guitar-start-2p" class="btn-primary">Jugar (2 Jugadores)</button>
+                    <button id="guitar-reset" class="btn-secondary">Reiniciar</button>
+                    <button id="btn-return-menu2" class="btn-secondary">Volver al Menú</button>
+                </div>
+            </section>
+
+            <!-- MENU PRINCIPAL -->
+            <section id="menu-section" class="game-section">
+                <h1 class="main-title">GAMECUBE</h1>
+                <p class="menu-subtitle">Proyecto Final FSE - SIMON DICE</p>
+                
+                <div class="menu-options">
+                    <button id="btn-simon" class="menu-btn simon-btn">
+                        <span class="menu-icon">◆</span>
+                        <span class="menu-text">MEMORIA</span>
+                        <span class="menu-desc">Sigue la secuencia</span>
+                    </button>
+
+                    <button id="btn-guitar" class="menu-btn guitar-btn">
+                        <span class="menu-icon">▶</span>
+                        <span class="menu-text">RITMO</span>
+                        <span class="menu-desc">1 minuto de juego</span>
+                    </button>
+
+                    <button id="btn-test" class="menu-btn test-btn">
+                        <span class="menu-icon">⚙</span>
+                        <span class="menu-text">CONFIGURACIÓN</span>
+                        <span class="menu-desc">Test de hardware</span>
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <strong>Controles (PC):</strong><br>
+                    J1: Q, W, E, R | J2: U, I, O, P
+                </div>
+            </section>
+
+            <!-- HARDWARE TEST SECTION -->
+            <section id="test-section" class="game-section hidden">
+                <h2 class="title">CONFIGURACIÓN</h2>
+                
+                <div class="test-container">
+                    <div class="test-group">
+                        <h3>LEDs de Control</h3>
+                        <div class="test-buttons">
+                            <button class="btn btn-test" data-led="1">LED 1</button>
+                            <button class="btn btn-test" data-led="2">LED 2</button>
+                            <button class="btn btn-test" data-led="3">LED 3</button>
+                            <button class="btn btn-test" data-led="4">LED 4</button>
+                        </div>
+                    </div>
+
+                    <div class="test-group">
+                        <h3>LCD I2C</h3>
+                        <div class="test-lcd">
+                            <input type="text" id="lcd-line1" placeholder="Línea 1" maxlength="16">
+                            <input type="text" id="lcd-line2" placeholder="Línea 2" maxlength="16">
+                            <button id="btn-lcd-write" class="btn btn-primary">Escribir LCD</button>
+                        </div>
+                    </div>
+
+                    <div class="test-status">
+                        <p><strong>Estado:</strong></p>
+                        <p id="hardware-status">Conectando...</p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="btn-return-menu3" class="btn-secondary">Volver al Menú</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- TOAST NOTIFICATIONS -->
+        <div id="toast-container"></div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-modal" class="result-modal hidden">
+            <div class="result-content">
+                <h1 id="result-title">Juego Terminado</h1>
+                <div id="result-body" class="result-body"></div>
+                <div class="result-buttons">
+                    <button id="result-restart" class="btn-primary">Jugar de Nuevo</button>
+                    <button id="result-menu" class="btn-secondary">Volver al Menú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/game.js"></script>
+</body>
+</html>

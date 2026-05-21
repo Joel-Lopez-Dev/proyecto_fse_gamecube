@@ -1,0 +1,138 @@
+================================================================================
+GAMECUBE - Proyecto Final FSE - SIMON DICE
+CONEXIONES GPIO Y HARDWARE - RASPBERRY PI 4
+================================================================================
+
+CONFIGURACIÓN DE PINES GPIO (BCM)
+================================================================================
+
+BOTONES JUGADOR 1 (J1) - ENTRADA
+  PIN 17 (BCM) -> Botón 1 (Rojo/Color 1)
+  PIN 27 (BCM) -> Botón 2 (Amarillo/Color 2)
+  PIN 22 (BCM) -> Botón 3 (Azul/Color 3)
+  PIN 23 (BCM) -> Botón 4 (Verde/Color 4)
+
+BOTONES JUGADOR 2 (J2) - ENTRADA (Expandible)
+  PIN 24 (BCM) -> Botón 1 (Rojo/Color 1)
+  PIN 25 (BCM) -> Botón 2 (Amarillo/Color 2)
+  PIN 4  (BCM) -> Botón 3 (Azul/Color 3)
+  PIN 14 (BCM) -> Botón 4 (Verde/Color 4)
+
+LEDS - SALIDA
+  PIN 5  (BCM) -> LED 1 (Rojo)
+  PIN 6  (BCM) -> LED 2 (Amarillo)
+  PIN 13 (BCM) -> LED 3 (Azul)
+  PIN 26 (BCM) -> LED 4 (Verde)
+
+PANTALLA LCD I2C 16x2
+  SDA -> PIN 2 (BCM) - Línea de datos (I2C)
+  SCL -> PIN 3 (BCM) - Línea de reloj (I2C)
+  Dirección I2C: 0x27 (por defecto)
+  VCC -> 5V
+  GND -> GND
+
+================================================================================
+ESQUEMA DE CABLEADO
+================================================================================
+
+BOTONES:
+  - Conectar cada botón entre el PIN GPIO y GND
+  - La librería RPi.GPIO usa pull-up por software (RESISTENCIAS INTERNAS)
+  - No necesitas resistencias externas
+
+LEDS:
+  - Cátodo (-) a GND
+  - Ánodo (+) a PIN GPIO a través de resistencia 330Ω
+
+LCD I2C:
+  - Incluye módulo I2C integrado
+  - Solo 4 cables: VCC, GND, SDA, SCL
+  - La detección automática busca el dispositivo en 0x27
+
+================================================================================
+MENSAJES LCD - QUÉ MUESTRA EN CADA SECCIÓN
+================================================================================
+
+INICIO (Boot):
+  Línea 1: "GameCube        "
+  Línea 2: "Iniciando...    "
+  → Luego cambia a "Listo! Sim" (simulación) o "Listo! RPi" (hardware real)
+
+MENÚ:
+  Línea 1: "Proyecto FSE    "
+  Línea 2: "Memoria/Ritmo   "
+
+SIMON DICE (Memoria):
+  Línea 1: "Combo: [valor]  "
+  Línea 2: "Score: [valor]  "
+  
+  En error:
+  Línea 1: "Error! E:[count]"
+  Línea 2: "Puntuación: XXX "
+
+GUITAR HERO (Ritmo):
+  Línea 1: "Racha: J1 | J2  "
+  Línea 2: "J1: [pts] |J2: [pts]"
+
+CONFIGURACIÓN:
+  Línea 1: "Config Modo     "
+  Línea 2: "1 o 2 Jugadores "
+
+================================================================================
+INSTALACIÓN DE LIBRERÍAS
+================================================================================
+
+En Raspberry Pi, instala lo siguiente:
+
+  pip install RPi.GPIO
+  pip install smbus2
+  pip install rpi-lcd
+
+Estas librerías SOLO funcionan en Raspberry Pi.
+En PC de desarrollo, se ignoran automáticamente.
+
+================================================================================
+NOTAS IMPORTANTES
+================================================================================
+
+1. Los botones usan GPIO.PUD_UP (pull-up interno)
+   - El botón en estado NORMAL = HIGH (3.3V)
+   - Al presionar = LOW (GND)
+
+2. Los LEDs se encienden con GPIO.HIGH (3.3V)
+
+3. LCD I2C busca automáticamente en 0x27
+   Si tienes otra dirección, modifica en app.py: LCD_ADDRESS = 0xXX
+
+4. Ejecutar con privilegios:
+   sudo python3 app.py
+   o
+   sudo bash gamecube-autostart.sh
+
+================================================================================
+PRUEBA RÁPIDA DE CONEXIONES
+================================================================================
+
+Para verificar que todo está conectado:
+
+  python3 -c "
+  import RPi.GPIO as GPIO
+  GPIO.setmode(GPIO.BCM)
+  # Probar LED 1
+  GPIO.setup(5, GPIO.OUT)
+  GPIO.output(5, GPIO.HIGH)
+  print('LED 1 (GPIO 5) encendido')
+  input('Presiona Enter para apagar...')
+  GPIO.output(5, GPIO.LOW)
+  GPIO.cleanup()
+  "
+
+Para LCD:
+
+  python3 -c "
+  from rpi_lcd import CharLCD
+  lcd = CharLCD(address=0x27, cols=16, rows=2)
+  lcd.write_string('Prueba LCD I2C')
+  "
+
+================================================================================
